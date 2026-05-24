@@ -1,0 +1,552 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Управленческий учет для малого бизнеса</title>
+
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --bg-card: rgba(255, 255, 255, 0.08);
+      --bg-card-hover: rgba(255, 255, 255, 0.14);
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
+      --accent-3: #22c55e;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 34%),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.2), transparent 32%),
+        linear-gradient(135deg, #020617 0%, #0f172a 50%, #111827 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 32px 18px;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 70px 56px;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      background: rgba(15, 23, 42, 0.72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background:
+        linear-gradient(120deg, rgba(56, 189, 248, 0.18), transparent 35%),
+        linear-gradient(300deg, rgba(167, 139, 250, 0.16), transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #bae6fd;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .eyebrow span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-3);
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.9);
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      background: linear-gradient(90deg, #ffffff 0%, #38bdf8 38%, #a78bfa 75%, #f8fafc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin-bottom: 34px;
+      color: var(--text-muted);
+      font-size: clamp(18px, 2.2vw, 23px);
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+
+    .point {
+      padding: 13px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #e0f2fe;
+      font-weight: 700;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 16px 34px rgba(56, 189, 248, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 22px 42px rgba(139, 92, 246, 0.35);
+    }
+
+    .note {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 36px;
+      border-radius: 28px;
+      background: rgba(15, 23, 42, 0.56);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 210px;
+      padding: 26px;
+      border-radius: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.12);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: var(--bg-card-hover);
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.26);
+    }
+
+    .card:hover::after {
+      transform: scale(1.4);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(167, 139, 250, 0.25));
+      font-size: 24px;
+    }
+
+    .card h3 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10px;
+      font-size: 21px;
+    }
+
+    .card p {
+      position: relative;
+      z-index: 1;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .cases {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+    }
+
+    .case-box {
+      padding: 28px;
+      border-radius: 26px;
+      background:
+        linear-gradient(135deg, rgba(34, 197, 94, 0.13), rgba(56, 189, 248, 0.08)),
+        rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.24);
+    }
+
+    .case-box.purple {
+      background:
+        linear-gradient(135deg, rgba(167, 139, 250, 0.16), rgba(56, 189, 248, 0.07)),
+        rgba(255, 255, 255, 0.06);
+      border-color: rgba(167, 139, 250, 0.26);
+    }
+
+    .case-title {
+      margin-bottom: 12px;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .case-box p {
+      color: var(--text-muted);
+    }
+
+    .tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tag {
+      padding: 11px 15px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .tag:hover {
+      transform: translateY(-3px);
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .final-block {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      margin-top: 34px;
+      padding: 34px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(167, 139, 250, 0.18));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .final-block h2 {
+      margin-bottom: 10px;
+    }
+
+    .final-block p {
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    .stat {
+      min-width: 180px;
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(2, 6, 23, 0.35);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 42px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .stat span {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        padding: 52px 32px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cases {
+        grid-template-columns: 1fr;
+      }
+
+      .final-block {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body {
+        padding: 18px 12px;
+      }
+
+      .hero {
+        padding: 38px 22px;
+        border-radius: 24px;
+      }
+
+      .section {
+        padding: 24px 18px;
+        border-radius: 22px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+
+      .hero-points {
+        flex-direction: column;
+      }
+
+      .point,
+      .button {
+        width: 100%;
+      }
+
+      .button {
+        text-align: center;
+      }
+
+      .final-block {
+        padding: 24px 18px;
+      }
+
+      .stat {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span></span>
+          Финансовая система для малого бизнеса
+        </div>
+
+        <h1>Услуги управленческого учета для малого бизнеса</h1>
+
+        <p class="subtitle">
+          Помогаю собственникам видеть реальную прибыль, понимать движение денег
+          и рассчитывать, сколько можно безопасно выводить из бизнеса.
+        </p>
+
+        <div class="hero-points">
+          <div class="point">Понимай свой бизнес</div>
+          <div class="point">Принимай правильные решения</div>
+          <div class="point">Увеличивай прибыль</div>
+        </div>
+
+        <div class="cta-row">
+          <a href="#result" class="button">Посмотреть результат</a>
+          <div class="note">ДДС, ОПиУ и баланс в понятной системе учета</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="result">
+      <div class="section-header">
+        <div class="section-label">Что вы получите</div>
+        <h2>Финансовая картина бизнеса без хаоса в цифрах</h2>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon">📈</div>
+          <h3>Рост прибыли</h3>
+          <p>
+            Вы увидите, какие направления, товары или услуги действительно приносят деньги.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="icon">🧾</div>
+          <h3>Контроль учета</h3>
+          <p>
+            Наведем порядок в доходах, расходах, обязательствах и движении денежных средств.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="icon">✂️</div>
+          <h3>Оптимизация расходов</h3>
+          <p>
+            Найдем лишние траты и точки, где бизнес теряет деньги незаметно для собственника.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="icon">📊</div>
+          <h3>Понятные отчеты</h3>
+          <p>
+            Отчеты будут показывать не просто цифры, а управленческие выводы для решений.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-label">Примеры задач</div>
+        <h2>Кейсы, которые помогает решить управленческий учет</h2>
+      </div>
+
+      <div class="cases">
+        <div class="case-box">
+          <div class="case-title">Сколько денег можно вывести из бизнеса?</div>
+          <p>
+            Разделяем прибыль на бумаге и реальные свободные деньги.
+            Помогаем понять, какую сумму можно забрать без риска для оборотки,
+            налогов и будущих платежей.
+          </p>
+        </div>
+
+        <div class="case-box purple">
+          <div class="case-title">Почему прибыль есть, а денег нет?</div>
+          <p>
+            Собираем ДДС, ОПиУ и баланс, чтобы увидеть кассовые разрывы,
+            зависшие деньги в запасах, дебиторке или лишних расходах.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-label">Инструменты учета</div>
+        <h2>Что вместе соберем и настроим</h2>
+      </div>
+
+      <div class="tools">
+        <div class="tag">ДДС</div>
+        <div class="tag">ОПиУ</div>
+        <div class="tag">Баланс</div>
+        <div class="tag">Контроль расходов</div>
+        <div class="tag">План-факт анализ</div>
+        <div class="tag">Расчет прибыли</div>
+        <div class="tag">Деньги к выводу</div>
+        <div class="tag">Финансовые отчеты</div>
+      </div>
+    </section>
+
+    <section class="final-block">
+      <div>
+        <h2>Управляйте бизнесом по цифрам, а не по ощущениям</h2>
+        <p>
+          Вместе соберем ДДС, ОПиУ и баланс, чтобы вы видели реальную прибыль,
+          контролировали расходы и принимали решения уверенно.
+        </p>
+      </div>
+
+      <div class="stat">
+        <strong>3</strong>
+        <span>ключевых отчета для управления</span>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
+```
